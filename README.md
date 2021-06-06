@@ -1,3 +1,21 @@
+# ===== 06062021 3=========
+# how to use migrations feature of TypeORM with NestJS
+
+- https://awesomeopensource.com/project/ambroiseRabier/typeorm-nestjs-migration-example
+- create src/ormconfig.ts to configer connecting with database
+- update app module to use ormconfig
+- update package.json with script needed for migration
+- run : npm run typeorm:migrate <migrationName> 
+- this command will create migration file inside src/migrations 
+- note : if no databasse change this command will return error and no generation
+-  synchronize: false, disabled inside ormconfig to prevent auto migration
+- inside ormconfig you can disable this if you prefer running migration manually.
+  migrationsRun: true,
+  when it is true migration will automaticly happen on npm run start
+- now running npm run typeorm:run will create contact and migration tables in database
+- for error can not find dist module we should run : npm run prebuild
+- when run npm run typeorm:run if no database change nothing will happen .
+
 # ===== 06062021 2=========
 #  Creating a CRUD Service
 
