@@ -1,3 +1,11 @@
+# ===== 06062021 2=========
+#  Creating a CRUD Service
+
+- we inject the Contact repository via the constructor of the service module.
+- inside service module define methods : findAll/create/update/delete
+- inside controller module define GET/POST/PUT/DELETE APIs
+
+
 # ===== 06062021 =========
 #  nestjs install typeorm / configer and connect database
 
