@@ -1,3 +1,17 @@
+# ===== 08062021 1=========
+# Add todo list and tasks to this project
+
+- configer tsconfig to call paths by @
+- install npm i --save class-validator for dto validation
+- create todo/task DTO
+- create todo/task module,controller and service
+- create mapper and utils
+- execute for generate migration new todo/task : npm run typeorm:migrate "update with todo"
+- execute for migrate with database : npm run typeorm migration:run
+- check database for new tables todo and task ... done
+- test todo GET/POST/PUT/DELETE
+- test task GET/POST/PUT/DELETE
+
 # ===== 06062021 3=========
 # how to use migrations feature of TypeORM with NestJS
 

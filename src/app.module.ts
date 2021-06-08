@@ -5,17 +5,20 @@ import { TypeOrmModule } from '@nestjs/typeorm';
 import * as ormconfig from './ormconfig';
 
 import { ContactsModule } from './contacts/contacts.module'; 
+import { TodoModule } from './todo/todo.module';
 
 
-export function DatabaseOrmModule(): DynamicModule {
+/* export function DatabaseOrmModule(): DynamicModule {
   // we could load the configuration from dotEnv here,
   // but typeORM cli would not be able to find the configuration file.
 
   return TypeOrmModule.forRoot(ormconfig);
 }
-
+ */
 @Module({
-  imports: [ContactsModule,
+  imports: [
+    ContactsModule,
+    TodoModule,
     TypeOrmModule.forRoot(ormconfig)
     // or
     // DatabaseOrmModule(),
