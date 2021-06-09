@@ -1,3 +1,12 @@
+# ===== 08062021 2=========
+#  Use ValidationPipe
+
+- npm i --save  class-transformer class-validator
+- make validation example for todo create/update body request parameters
+- we use todocontroller and todo create DTO for that
+- display custom message when validation failed
+- https://github.com/typestack/class-validator
+
 # ===== 08062021 1=========
 # Add todo list and tasks to this project
 

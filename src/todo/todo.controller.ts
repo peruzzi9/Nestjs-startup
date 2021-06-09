@@ -8,6 +8,8 @@ import {
   Delete, 
   UseGuards,
   Req,
+  UsePipes,
+  ValidationPipe,
 } from '@nestjs/common';
 import { TodoListDto } from './dto/todo.list.dto';
 import { TodoDto } from './dto/todo.dto';
@@ -30,6 +32,9 @@ export class TodoController {
   }
 
   @Post() 
+  @UsePipes(new ValidationPipe())
+  // this will make validation parameters sent inside req body 
+  // we benefit from createtodo dto to make this validation ... take a look there
   async create(
     @Body() createTodoDto: CreateTodoDto,
     @Req() req: any,
@@ -40,6 +45,9 @@ export class TodoController {
   }
 
   @Put(':id') 
+  @UsePipes(new ValidationPipe())
+  // this will make validation parameters sent inside req body 
+  // we benefit from createtodo dto to make this validation ... take a look there
   async update(
     @Param('id') id: string,
     @Body() todoDto: TodoDto,
