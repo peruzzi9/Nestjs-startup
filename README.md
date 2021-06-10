@@ -1,3 +1,14 @@
+# ===== 10062021 5=========
+#  use many env files to configure project for development,staging and production with simple commands
+- npm i env-cmd
+- add .production.env and .staging.env files .
+- add three new script to package.json file .
+- we can now run our project with one of three modes :
+* for production : npm run prod
+* for staging : npm run staging
+* for development : npm run dev
+
+
 # ===== 10062021 4=========
 #  use env file to configure project and access setting
 - npm i --save dotenv
