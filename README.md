@@ -1,3 +1,11 @@
+# ===== 10062021 4=========
+#  use env file to configure project and access setting
+- npm i --save dotenv
+- add .env file
+- add database connection settings to env / add server port number
+- modify ormconfig.ts file to get database connection settings from env file
+- modify main.ts to get port number from env file
+
 # ===== 10062021 3=========
 #  not important ... remove unused lines from todoController
 - Fixes 

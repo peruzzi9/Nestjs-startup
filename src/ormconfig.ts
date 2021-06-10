@@ -1,22 +1,18 @@
 import {ConnectionOptions} from 'typeorm';
+import 'dotenv/config';
 
-// You can load you .env file here synchronously using dotenv package (not installed here),
-// import * as dotenv from 'dotenv';
-// import * as fs from 'fs';
-// const environment = process.env.NODE_ENV || 'development';
-// const data: any = dotenv.parse(fs.readFileSync(`${environment}.env`));
-// You can also make a singleton service that load and expose the .env file content.
-// ...
-
-
+console.log("env run as======",process.env.NODE_ENV)
+console.log("env file DB_HOST/DB_PORT======",process.env.DB_HOST+"/"+process.env.DB_PORT)
+console.log("env file DB_USER/DB_PASS======",process.env.DB_USER+"/"+process.env.DB_PASS)
+console.log("env file DB_NAME======",process.env.DB_NAME)
 // Check typeORM documentation for more information.
 const ormconfig: ConnectionOptions = {
   type: 'postgres',
-  host: 'localhost',
-  port: 5432,
-  username: 'postgres',
-  password: '12345678',
-  database: 'alaatest',
+  host: process.env.DB_HOST,
+  port: parseInt(process.env.DB_PORT),
+  username: process.env.DB_USER,
+  password: String(process.env.DB_PASS),
+  database: process.env.DB_NAME,
   entities: [__dirname + '/**/*.entity{.ts,.js}'],
 
   // We are using migrations, synchronize should be set to false.
