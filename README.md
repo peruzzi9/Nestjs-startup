@@ -1,3 +1,8 @@
+# ===== 10062021 1=========
+#  Dependency injection and provider in Nest.js
+- no code changes here just ... article for more understanding
+- https://www.programmersought.com/article/6406825702/
+
 # ===== 08062021 2=========
 #  Use ValidationPipe
 
