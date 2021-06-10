@@ -1,3 +1,7 @@
+# ===== 10062021 3=========
+#  not important ... remove unused lines from todoController
+- Fixes 
+
 # ===== 10062021 2=========
 #  Users and Authentication Step 1
 # creating all database users functionality without authentication APIs yet

@@ -6,8 +6,6 @@ import {
   Body,
   Put,
   Delete, 
-  UseGuards,
-  Req,
   UsePipes,
   ValidationPipe,
 } from '@nestjs/common';
@@ -21,7 +19,7 @@ export class TodoController {
   constructor(private readonly todoService: TodoService) {}
 
   @Get()
-  async findAll(@Req() req: any): Promise<TodoListDto> {
+  async findAll(): Promise<TodoListDto> {
     const todos = await this.todoService.getAllTodo();
     return { todos };
   }
@@ -36,8 +34,7 @@ export class TodoController {
   // this will make validation parameters sent inside req body 
   // we benefit from createtodo dto to make this validation ... take a look there
   async create(
-    @Body() createTodoDto: CreateTodoDto,
-    @Req() req: any,
+    @Body() createTodoDto: CreateTodoDto
   ): Promise<TodoDto> {
      
 
