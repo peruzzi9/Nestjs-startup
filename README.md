@@ -1,3 +1,17 @@
+# ===== 10062021 2=========
+#  Users and Authentication Step 1
+# creating all database users functionality without authentication APIs yet
+
+- https://www.codemag.com/Article/2001081/Nest.js-Step-by-Step-Part-3-Users-and-Authentication
+- For user authentication, I've chosen to use the Passport.js module. By far, this is the most popular and flexible Node.js authentication module because it supports a variety of authentication strategies ranging from Local Strategy, to JWT Strategy to Google Authentication Strategy and other Social Media authentication strategies.
+
+- npm i --save bcrypt @nestjs/passport @nestjs/jwt passport passport-jwt
+- npm i @types/bcrypt @types/passport @types/passport-jwt -D 
+- create users module/service/entity/dto for login,create and user info 
+- npm run typeorm:migrate "Add users table"
+- npm run typeorm:run ... this will create users table in database
+- add to mapper toUserDto
+
 # ===== 10062021 1=========
 #  Dependency injection and provider in Nest.js
 - no code changes here just ... article for more understanding
