@@ -7,6 +7,7 @@ import * as ormconfig from './ormconfig';
 import { ContactsModule } from './contacts/contacts.module'; 
 import { TodoModule } from './todo/todo.module'; 
 import { UsersModule } from '@user/users.module';
+import { AuthModule } from './auth/auth.module';
 
 
 /* export function DatabaseOrmModule(): DynamicModule {
@@ -21,6 +22,7 @@ import { UsersModule } from '@user/users.module';
     ContactsModule,
     TodoModule,
     UsersModule,
+    AuthModule,
     TypeOrmModule.forRoot(ormconfig)
     // or
     // DatabaseOrmModule(),

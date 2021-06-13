@@ -1,3 +1,13 @@
+# ===== 13062021 1=========
+#  Users and Authentication Step 2
+# Building the AuthModule ... Auth APIs
+- https://www.codemag.com/Article/2001081/Nest.js-Step-by-Step-Part-3-Users-and-Authentication
+
+- Create the Auth Module that will eventually expose the /auth endpoint to allow user registration, login, and privacy protection in your application.
+
+- the JWT Strategy extracts the token and validates it. 
+- test user registration and login APIs 
+
 # ===== 10062021 5=========
 #  use many env files to configure project for development,staging and production with simple commands
 - npm i env-cmd
