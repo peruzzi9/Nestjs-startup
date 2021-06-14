@@ -37,6 +37,8 @@ export class AuthService {
     // find user in db
     const user = await this.usersService.findByLogin(loginUserDto);
 
+    // if user not exist or wrong password then response will be sent from inside usersService.findByLogin
+    console.log("user === ",user)
     // generate and sign token
     const token = this._createToken(user);
     

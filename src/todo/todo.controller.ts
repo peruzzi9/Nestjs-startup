@@ -45,10 +45,22 @@ export class TodoController {
   ): Promise<TodoDto> {
     const user = req.user as UserDto;
     /* 
+    more :  that Passport will build a user object based on the return value of our validate() method (jwt.strategy.ts),
+     and attach it as a property on the Request object.
+    */
+    /* 
      The body of the route handler retrieves the logged-in user via req.user. 
      This information was injected into the current Request object by Passport.js middleware.
      It then passes this information to the TodoService.createTodo() function.
     */
+   /* 
+   * Summery :
+   * Bearer Token will be sent with API request to create new todo item
+   * validate() function inside jwt.strategy will retrieve user details from this token if the passed token is valid
+   * then check if user exist in database and get its details
+   * then attach it as a property on the Request object
+   * then here we access it through req.user to use it in create new to do item
+   */
     return await this.todoService.createTodo(user, createTodoDto);
   }
 
