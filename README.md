@@ -1,3 +1,29 @@
+# ===== 14062021 2=========
+#  SECURITY :::: Helmet / rateLimit / enableCors
+- Helmet
+- https://github.com/helmetjs/helmet
+- https://docs.nestjs.com/security/helmet
+- Helmet can help protect your app from some well-known web vulnerabilities by setting HTTP headers appropriately. Generally, Helmet is just a collection of 14 smaller middleware functions that set security-related HTTP headers
+
+- Cross-origin
+- https://docs.nestjs.com/security/cors
+- https://github.com/expressjs/cors#configuration-options
+- Cross-origin resource sharing (CORS) is a mechanism that allows resources to be requested from another domain.
+- Important Note : An alternative to CORS headers is to standup a webserver such as Nginix on your computer and proxy all your requests through it, forwarding to the appropriate port based on a url root. This is how things are normally approached in the real world as the CORS headers are relatively new and can open security holes you may not want by default.
+
+This solves the fundamental problem that is your application is running on a different Origin (protocol + domain + port) than the api you want to access.
+
+- Rate Limiting
+- https://www.npmjs.com/package/express-rate-limit
+- https://docs.nestjs.com/security/rate-limiting
+- A common technique to protect applications from brute-force attacks is rate-limiting.Basic rate-limiting middleware for Express. Use to limit repeated requests to public APIs and/or endpoints such as password reset.
+
+- CSRF Protection
+- https://docs.nestjs.com/security/csrf
+Cross-site request forgery (also known as CSRF or XSRF) is a type of malicious exploit of a website where unauthorized commands are transmitted from a user that the web application trusts. To mitigate this kind of attack you can use the csurf package.
+
+
+
 # ===== 14062021 1=========
 #  add some new comments to describe Authentication
 
