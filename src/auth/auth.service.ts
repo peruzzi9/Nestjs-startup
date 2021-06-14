@@ -51,7 +51,7 @@ export class AuthService {
    once a token is validated by Passport.js middleware.
   */
   async validateUser(payload: JwtPayload): Promise<UserDto> {
-    const user = await this.usersService.findByPayload(payload);
+    const user = await this.usersService.findByPayload(payload); 
     if (!user) {
       throw new HttpException('Invalid token', HttpStatus.UNAUTHORIZED);
     }
@@ -59,7 +59,7 @@ export class AuthService {
   }
 
   private _createToken({ username }: UserDto): any {
-    const expiresIn = process.env.EXPIRESIN;
+    const expiresIn = process.env.JWT_EXPIRESIN;
 
     const user: JwtPayload = { username };
     const accessToken = this.jwtService.sign(user);

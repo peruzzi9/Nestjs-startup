@@ -1,4 +1,4 @@
-import { DynamicModule, Module } from '@nestjs/common';
+import { DynamicModule, MiddlewareConsumer, Module, NestModule } from '@nestjs/common';
 import { AppController } from './app.controller';
 import { AppService } from './app.service';
 import { TypeOrmModule } from '@nestjs/typeorm';
@@ -8,6 +8,7 @@ import { ContactsModule } from './contacts/contacts.module';
 import { TodoModule } from './todo/todo.module'; 
 import { UsersModule } from '@user/users.module';
 import { AuthModule } from './auth/auth.module';
+import { LoggerMiddleware } from './logger.middleware';
 
 
 /* export function DatabaseOrmModule(): DynamicModule {
@@ -30,4 +31,11 @@ import { AuthModule } from './auth/auth.module';
   controllers: [AppController],
   providers: [AppService],
 })
-export class AppModule {}
+export class AppModule implements NestModule {
+  // add Middleware for logging every request
+  configure(consumer: MiddlewareConsumer) {
+    consumer
+      .apply(LoggerMiddleware)
+      .forRoutes('/');
+  }
+}

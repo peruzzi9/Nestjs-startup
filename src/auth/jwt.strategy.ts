@@ -1,7 +1,7 @@
 import { PassportStrategy } from '@nestjs/passport';
 import { ExtractJwt, Strategy } from 'passport-jwt';
 import { AuthService } from './auth.service';
-import { Injectable, HttpException, HttpStatus } from '@nestjs/common';
+import { Injectable, HttpException, HttpStatus, Logger } from '@nestjs/common';
 import { JwtPayload } from './interfaces/payload.interface';
 import { UserDto } from '@user/dto/user.dto';
 
@@ -11,11 +11,18 @@ export class JwtStrategy extends PassportStrategy(Strategy) {
   constructor(private readonly authService: AuthService) {
     super({
       jwtFromRequest: ExtractJwt.fromAuthHeaderAsBearerToken(),
-      secretOrKey: process.env.SECRETKEY,
+      secretOrKey: process.env.JWT_SECRETKEY,
     });
+    console.log("JwtStrategy JWT_SECRETKEY====",process.env.JWT_SECRETKEY);
   }
+  
 // this will executed after token is validated and accepted
+// The return from the validate() method is injected into the request object of any operation 
+// that's guarded with JWT authentication.
+// like new todo post API
+  
   async validate(payload: JwtPayload): Promise<UserDto> {
+    
     const user = await this.authService.validateUser(payload);
     if (!user) {
       throw new HttpException('Invalid token', HttpStatus.UNAUTHORIZED);

@@ -1,3 +1,29 @@
+# ===== 13062021 2=========
+#  Users Must Be Logged-In to Create a New To-Do Item
+#  API protection with token
+- add  UserEntity to forFeature and  Import the UsersModule and AuthModule into the TodoModule
+- By importing the AuthModule, you'll be able to make use of AuthGuard() to protect the Route Handlers and force a logged-in user.
+- add owner property to todoentity with relation .
+- The owner property is of type UserEntity. The @ManyToOne() decorates this new property to signal to TypeORM module to store the User ID on the Todo table and configure it as a Foreign Key. Every user can own one or more To Do items and in return, every To Do is owned by one and only one user.
+- add owner property to tododto  of type userdto
+- add owner property to toTodoDto inside mapper  of type userdto
+- update database : 
+- npm run "typeorm:migrate" AddOwnerColumnToTodoTable
+- npm run "typeorm:run"
+- update todocontroller with AuthGuard() for create new todo
+- update todoservice to use user on create new todo item
+
+- create new todo by api by :
+- add the Authorization request header, otherwise, Nest.js won't be able to find the token and it won't authenticate the request. The authorization header should look similar to this (except without the line breaks forced by the printing process)
+- in postman header : Authorization = Brearer TOKEN
+
+- catch all requests coming to server and display in console  BY :
+- create LoggerMiddleware to print every request path on console
+- and use this middleware in app module
+- https://github.com/nestjs/nest/issues/912
+
+
+
 # ===== 13062021 1=========
 #  Users and Authentication Step 2
 # Building the AuthModule ... Auth APIs

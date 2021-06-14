@@ -15,9 +15,9 @@ import { JwtStrategy } from './jwt.strategy';
       session: false,
     }),
     JwtModule.register({
-      secret: process.env.SECRETKEY,
+      secret: process.env.JWT_SECRETKEY,
       signOptions: {
-        expiresIn: process.env.EXPIRESIN,
+        expiresIn: process.env.JWT_EXPIRESIN,
       },
     }),
   ],
@@ -25,4 +25,9 @@ import { JwtStrategy } from './jwt.strategy';
   providers: [AuthService, JwtStrategy],
   exports: [PassportModule, JwtModule],
 })
-export class AuthModule {}
+export class AuthModule {
+  constructor(){
+    console.log("JWT_SECRETKEY===",process.env.JWT_SECRETKEY)
+    console.log("JWT_EXPIRESIN===",process.env.JWT_EXPIRESIN)
+  }
+}
