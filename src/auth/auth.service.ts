@@ -35,17 +35,23 @@ export class AuthService {
 
   async login(loginUserDto: LoginUserDto): Promise<LoginStatus> {
     // find user in db
-    const user = await this.usersService.findByLogin(loginUserDto);
+    const response = await this.usersService.findByLogin(loginUserDto);
 
     // if user not exist or wrong password then response will be sent from inside usersService.findByLogin
-    console.log("user === ",user)
-    // generate and sign token
-    const token = this._createToken(user);
-    
-    return {
-      username: user.username,
+    console.log("response === ",response)
+    if (response.code == 200)
+    {
+     // generate and sign token
+     const token = this._createToken(response.user); 
+     return {
+      code:200,
+      username: response.user.username,
       ...token,
     };
+    }
+    
+    return response;
+   
   }
 
   /* 

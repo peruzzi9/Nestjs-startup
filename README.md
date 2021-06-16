@@ -1,3 +1,16 @@
+# ===== 15062021 1=========
+#  Make custom API Response 
+- like :
+{
+  code : 200,
+  result : object[]
+}
+or 
+{
+  code : 400,
+  error : 'no result'
+- make this example on login API
+
 # ===== 14062021 2=========
 #  SECURITY :::: Helmet / rateLimit / enableCors
 - Helmet
