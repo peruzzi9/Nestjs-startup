@@ -1,3 +1,17 @@
+# ===== 17062021 1=========
+#  SECURITY :::: Protect server
+- https://bluebits.dev/2021/06/03/how-to-make-nodejs-web-api-secure/?fbclid=IwAR3bcS1nJXVb9vJuCsh-isV6jYAPPP8TMEIzSThwHhJdOG-vcosZ7qq9fjY
+-  Protect  application from uploading files larger then 50mb .
+-  Protect  application API request form body attack larger than 100kb
+-  Protect  application from scripts : prevent users from inserting HTML & Scripts on input / prevent XSS attacks .
+-  https://www.npmjs.com/package/xss
+- Apply validation for all inputs globally (app.useGlobalPipes(
+    new ValidationPipe({.... )
+- read this : http://www.mianshigee.com/tutorial/nestjs-6.0-en/techniques-validation.md
+- read this : https://l4mp1.medium.com/difference-between-xss-and-csrf-attacks-ff29e5abcd33
+- also read this : https://itnext.io/how-to-secure-your-web-applications-part-1-cpas-3-715b72973623
+- to be continued ....
+
 # ===== 15062021 1=========
 #  Make custom API Response 
 - like :
