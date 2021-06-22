@@ -1,3 +1,13 @@
+# ===== 21062021 1=========
+#  Update user login to use email instead of username
+
+- update loginDto and service login function to search for email .
+- update all login and register to check for email instead of username
+- update todo to check for user id instead of username
+- update create token to generate token using user id instead of username .
+- update jwtpayload to use id instead of username for jwtstrategy user validate >
+- make username not unique and generate/run migration with database .
+
 # ===== 17062021 1=========
 #  SECURITY :::: Protect server
 - https://bluebits.dev/2021/06/03/how-to-make-nodejs-web-api-secure/?fbclid=IwAR3bcS1nJXVb9vJuCsh-isV6jYAPPP8TMEIzSThwHhJdOG-vcosZ7qq9fjY

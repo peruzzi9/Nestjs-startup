@@ -26,11 +26,7 @@ export class AuthController {
   ): Promise<RegistrationStatus> {
     const result: RegistrationStatus = await this.authService.register(
       createUserDto,
-    );
-
-    if (!result.success) {
-      throw new HttpException(result.message, HttpStatus.BAD_REQUEST);
-    }
+    ); 
 
     return result;
   }

@@ -17,40 +17,39 @@ export class AuthService {
 
   async register(userDto: CreateUserDto): Promise<RegistrationStatus> {
     let status: RegistrationStatus = {
-      success: true,
+      code: 200,
       message: 'user registered',
     };
 
-    try {
-      await this.usersService.create(userDto);
-    } catch (err) {
-      status = {
-        success: false,
-        message: err,
-      };
-    }
+    
+    const result=  await this.usersService.create(userDto);
+    if (result.error)   
+    status = {
+        code: 400,
+        error: result.error,
+       }
 
     return status;
   }
 
   async login(loginUserDto: LoginUserDto): Promise<LoginStatus> {
     // find user in db
-    const response = await this.usersService.findByLogin(loginUserDto);
+    const result = await this.usersService.findByLogin(loginUserDto);
 
     // if user not exist or wrong password then response will be sent from inside usersService.findByLogin
-    console.log("response === ",response)
-    if (response.code == 200)
+    console.log("response === ",result)
+    if (!result.error)
     {
      // generate and sign token
-     const token = this._createToken(response.user); 
+     const token = this._createToken(result.user); 
      return {
       code:200,
-      username: response.user.username,
+      email: result.user.email,
       ...token,
     };
     }
     
-    return response;
+    return {code:400,...result};
    
   }
 
@@ -66,10 +65,10 @@ export class AuthService {
     return user;
   }
 
-  private _createToken({ username }: UserDto): any {
+  private _createToken({ id }: UserDto): any {
     const expiresIn = process.env.JWT_EXPIRESIN;
 
-    const user: JwtPayload = { username };
+    const user: JwtPayload = { id };
     const accessToken = this.jwtService.sign(user);
     return {
       expiresIn,

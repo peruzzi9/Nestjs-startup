@@ -40,13 +40,13 @@ export class TodoService {
   }
 
   async createTodo(
-    { username }: UserDto,
+    { id }: UserDto,
     createTodoDto: CreateTodoDto,
   ): Promise<TodoDto> {
     const { name, description } = createTodoDto;
 
     // get the user from db
-    const owner = await this.usersService.findOne({ where: { username } });
+    const owner = await this.usersService.findOne({ where: { id } });
 
     const todo: TodoEntity = await this.todoRepo.create({
       name,

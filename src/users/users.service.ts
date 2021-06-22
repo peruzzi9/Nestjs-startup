@@ -21,15 +21,12 @@ export class UsersService {
     return toUserDto(user);
   }
 
-  async findByLogin({ username, password }: LoginUserDto): Promise<any> {
-    const user = await this.userRepo.findOne({ where: { username } });
+  async findByLogin({ email, password }: LoginUserDto): Promise<any> {
+    const user = await this.userRepo.findOne({ where: { email } });
 
     if (!user) {
      // throw new HttpException('User not found', HttpStatus.UNAUTHORIZED);
-     return {
-      code:400,
-      error: 'User not found'
-    };
+     return {error: 'User not found' };
     }
 
     // compare passwords
@@ -37,29 +34,24 @@ export class UsersService {
 
     if (!areEqual) {
      // throw new HttpException('Invalid credentials', HttpStatus.UNAUTHORIZED);
-     return {
-      code:400,
-      error: 'Invalid credentials'
-    };
+     return {error: 'Invalid credentials'};
     }
 
-    return {
-      code:200,
-      user : toUserDto(user)
-    };
+    return {user : toUserDto(user)};
   }
 
-  async findByPayload({ username }: any): Promise<UserDto> {
-    return await this.findOne({ where: { username } });
+  async findByPayload({ id }: any): Promise<UserDto> {
+    return await this.findOne({ where: { id } });
   }
 
-  async create(userDto: CreateUserDto): Promise<UserDto> {
+  async create(userDto: CreateUserDto): Promise<any> {
     const { username, password, email } = userDto;
 
     // check if the user exists in the db
-    const userInDb = await this.userRepo.findOne({ where: { username } });
+    const userInDb = await this.userRepo.findOne({ where: { email } });
     if (userInDb) {
-      throw new HttpException('User already exists', HttpStatus.BAD_REQUEST);
+     // throw new HttpException('User already exists', HttpStatus.BAD_REQUEST);
+     return {error:'User already exists'}
     }
 
     const user: UserEntity = await this.userRepo.create({
@@ -70,7 +62,7 @@ export class UsersService {
 
     await this.userRepo.save(user);
 
-    return toUserDto(user);
+    return {user:toUserDto(user)};
   }
 
   private _sanitizeUser(user: UserEntity) {
