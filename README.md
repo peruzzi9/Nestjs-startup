@@ -1,3 +1,35 @@
+# ===== 30062021 1=========
+
+#  Refresh Token
+#  Update user login and APIs protection to use Access Token/Refresh Token
+- If you’re using httpOnly and secure cookies this means that your cookies cannot be accessed using JavaScript so even if an attacker can run JS on your site, they can't read your access token from the cookie
+It’s automatically sent in every HTTP request to your server.
+- Use the httpOnly flag to prevent JavaScript from reading it.
+- Use the secure=true flag so it can only be sent over HTTPS.
+- Use the SameSite=strict flag whenever possible to prevent CSRF. This can only be used if the Authorization Server has the same site as your front end. If this is not the case, your Authorization Server must set CORS headers in the backend or use other methods to ensure that the refresh token request can only be done by authorized websites.
+
+-  https://wanago.io/2020/09/21/api-nestjs-refresh-tokens-jwt/
+-  https://www.learmoreseekmore.com/2021/05/nestjs-jwt-auth-cookie-series-part3-refresh-token.html
+-  we will save token in cookie HttpOnly and store refresh token in database
+-  how it works ?
+1- When you do log in, send 2 tokens (Access token, Refresh token) in response to the client.
+2- The access token will have less expiry time and Refresh will have long expiry time.
+3- The client (Front end) will store access token in his local storage and refresh token/access token  in cookies.
+4- The client will use an access token for calling APIs. But when it expires, pick the refresh token from local storage and call auth server API to get the new token.
+5- Your auth server will have an API exposed which will accept refresh token and checks for its validity and return a new access token.
+6- Once the refresh token is expired, the User will be logged out.
+
+- add logout API and clear refresh token from database on logout .
+- npm install --save cookie-parser
+- import and activate inside main.ts
+- define createdDate property for JwtPayload to get different token every time for same userId.
+- Summery : jwtstrategy here check access token with expirdate check if valid then check user and refreshtoken and compare if it is the same with database .
+- NestJs Refresh token postman_30062021 : postman collection have four api login/logout/refresh/whoami
+ for testing refresh token and access token inside cookies .
+
+- important : Is/As mobile applications do not have cookies ?!!!!!!!!- this is a wrong statement. 
+The support of cookies is provided by the OS. You may want to look at CookieManager for Android or HTTPCookieStorage for iOS. Both Android and iOS apps do support cookies including httpOnly.
+
 # ===== 21062021 1=========
 #  Update user login to use email instead of username
 

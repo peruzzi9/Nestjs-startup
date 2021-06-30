@@ -1,5 +1,6 @@
 export interface LoginStatus {
+  code :number;
   email : string;
-  accessToken: any;
-  expiresIn: any;
+  accessToken:string;
+  refreshToken:string;
 }

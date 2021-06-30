@@ -12,4 +12,5 @@ export class UserDto {
   email: string;
 
   createdOn?: Date;
+  currentHashedRefreshToken?:string;
 }

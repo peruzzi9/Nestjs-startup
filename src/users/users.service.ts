@@ -7,6 +7,7 @@ import { toUserDto } from '@shared/mapper';
 import { CreateUserDto } from './dto/user.create.dto';
 import { LoginUserDto } from './dto/user-login.dto';
 import { comparePasswords } from '@shared/utils';
+import * as bcrypt from 'bcrypt';
 
 @Injectable()
 export class UsersService {
@@ -29,9 +30,10 @@ export class UsersService {
      return {error: 'User not found' };
     }
 
+    
     // compare passwords
     const areEqual = await comparePasswords(user.password, password);
-
+    console.log("Password =====",user.password, password, areEqual)
     if (!areEqual) {
      // throw new HttpException('Invalid credentials', HttpStatus.UNAUTHORIZED);
      return {error: 'Invalid credentials'};
@@ -41,6 +43,7 @@ export class UsersService {
   }
 
   async findByPayload({ id }: any): Promise<UserDto> {
+    console.log("findByPayload===",id)
     return await this.findOne({ where: { id } });
   }
 
@@ -69,4 +72,20 @@ export class UsersService {
     delete user.password;
     return user;
   }
+
+  //  saving the hash of the current refresh token in database.
+  async setCurrentRefreshToken(refreshToken: string, userId: string) {
+    const currentHashedRefreshToken = await bcrypt.hash(refreshToken, 10);
+    await this.userRepo.update(userId, {
+      currentHashedRefreshToken
+    });
+  }
+//removes the refresh token from the database.
+  async removeRefreshToken(userId: string) {
+    console.log("User with userId=",userId," is logged out ....")
+    return this.userRepo.update(userId, {
+      currentHashedRefreshToken: null
+    });
+  }
+
 }

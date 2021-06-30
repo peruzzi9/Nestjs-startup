@@ -7,6 +7,7 @@ import * as rateLimit from 'express-rate-limit';
 import * as csurf from 'csurf';
 import { json } from 'express';
 import *  as xss from 'xss-clean';
+import * as cookieParser from 'cookie-parser';
 
 const Port = process.env.PORT;
 
@@ -39,7 +40,7 @@ https://github.com/expressjs/cors#configuration-options
   // /**
   //  * we need this because "cookie" is true in csrfProtection
   //  */
-  // app.use(cookieParser());
+   app.use(cookieParser());
 
   // app.use(csurf({ cookie: true }));
   // or

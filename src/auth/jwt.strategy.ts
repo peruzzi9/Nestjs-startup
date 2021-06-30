@@ -1,19 +1,44 @@
 import { PassportStrategy } from '@nestjs/passport';
 import { ExtractJwt, Strategy } from 'passport-jwt';
 import { AuthService } from './auth.service';
-import { Injectable, HttpException, HttpStatus, Logger } from '@nestjs/common';
+import { Injectable, HttpException, HttpStatus, Logger, BadRequestException } from '@nestjs/common';
 import { JwtPayload } from './interfaces/payload.interface';
 import { UserDto } from '@user/dto/user.dto';
-
-
+import { Request } from 'express';
+import { JwtService } from '@nestjs/jwt';
 @Injectable()
-export class JwtStrategy extends PassportStrategy(Strategy) {
-  constructor(private readonly authService: AuthService) {
+export class JwtStrategy extends PassportStrategy(Strategy,'jwt-refresh-token') {
+  constructor(private readonly authService: AuthService, 
+              private readonly jwtService: JwtService) {
     super({
-      jwtFromRequest: ExtractJwt.fromAuthHeaderAsBearerToken(),
-      secretOrKey: process.env.JWT_SECRETKEY,
+      jwtFromRequest: ExtractJwt.fromExtractors([(request: Request) => {
+        //console.log("request===",request)
+        
+        const data = request?.cookies["auth-cookie"];
+        
+        console.log("JwtStrategy validate Token====",data)
+                if(!data){
+                    return null;
+                }
+                // note : decoded accesstoken is same as finale payload passed to validate()
+                console.log("JwtStrategy accessToken decoded=====",this.jwtService.decode(data.accessToken))
+                const decodedToken:any=this.jwtService.decode(data.accessToken);
+                const expireDate=decodedToken.exp;
+                console.log("JwtStrategy accessToken will expire at=====",new Date(expireDate*1000))
+                return data.accessToken
+                // here return accessToken to be checked and verified 
+                // we can replace with refresh token if we want validate refresh token not access token but we should make changes on jwtModule.register
+      }]), 
+      ignoreExpiration: false,
+      passReqToCallback: true,
+      secretOrKey: process.env.JWT_SECRETKEY, // accesstoken secretKey
+      /* 
+      The 'ignoreExpiration' property accepts a boolean value, if the value is true 
+      then 'JwtStrategy' ignores to check token expiration on validation,
+       if the value is false then 'JwtStrategy' will check for the expiration date. 
+      */
     });
-    console.log("JwtStrategy JWT_SECRETKEY====",process.env.JWT_SECRETKEY);
+    console.log("JwtStrategy JWT_REFRESH_TOKEN_SECRET====",process.env.JWT_REFRESH_TOKEN_SECRET);
   }
   
 // this will executed after token is validated and accepted
@@ -21,13 +46,19 @@ export class JwtStrategy extends PassportStrategy(Strategy) {
 // that's guarded with JWT authentication.
 // like new todo post API
   
-  async validate(payload: JwtPayload): Promise<UserDto> {
+  async validate(request: Request,payload: JwtPayload): Promise<UserDto> {
     console.log("JwtStrategy validate====",payload);
-    const user = await this.authService.validateUser(payload);
-    if (!user) {
-      throw new HttpException('Invalid token', HttpStatus.UNAUTHORIZED);
-    }
-    return user;
+    if(!payload){
+      throw new BadRequestException('invalid jwt token');
+  }
+  const data = request?.cookies["auth-cookie"];
+  if(!data?.refreshToken){
+      throw new BadRequestException('invalid refresh token');
+  }
+    const refreshToken = data.refreshToken;
+    // here we replace validate() with getUserIfRefreshTokenMatches
+    // now we check in database user and refresh token existing and matches
+    return this.authService.getUserIfRefreshTokenMatches(refreshToken, payload.id);
   }
 }
 

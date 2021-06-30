@@ -37,7 +37,7 @@ export const toTaskDto = (data: TaskEntity): TaskDto => {
 };
 
 export const toUserDto = (data: UserEntity): UserDto => {  
-  const { id, username, email } = data;
-  const userDto: UserDto = { id, username, email,  };
+  const { id, username, email ,currentHashedRefreshToken} = data;
+  const userDto: UserDto = { id, username, email,currentHashedRefreshToken  };
   return userDto;
 };

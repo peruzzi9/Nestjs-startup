@@ -10,7 +10,8 @@ import { JwtStrategy } from './jwt.strategy';
   imports: [
     UsersModule,
     PassportModule.register({
-      defaultStrategy: 'jwt',
+      defaultStrategy: 'jwt-refresh-token',// when we have many strategy we define default one 
+                             //to be used with guard without strategy name
       property: 'user',
       session: false,//by default, disables storing any authentication information in the Server Session
     }),

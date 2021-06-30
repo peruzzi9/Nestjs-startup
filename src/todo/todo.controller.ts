@@ -23,7 +23,7 @@ export class TodoController {
   constructor(private readonly todoService: TodoService) {}
 
   @Get()
-  //@UseGuards(AuthGuard()) // Protect the route handlers to force a logged-in user
+  @UseGuards(AuthGuard('jwt-refresh-token')) // Protect the route handlers to force a logged-in user
   async findAll(): Promise<TodoListDto> {
     const todos = await this.todoService.getAllTodo();
     return { todos };
